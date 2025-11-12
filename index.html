@@ -27,160 +27,77 @@
             padding: 0 20px;
         }
 
-        /* Music Player */
-        .music-player {
+        /* Hidden Audio Player */
+        .hidden-audio {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 50px;
-            padding: 10px 20px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 122, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .music-player:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .music-info {
-            display: flex;
-            flex-direction: column;
-            max-width: 0;
-            overflow: hidden;
-            transition: max-width 0.5s ease, opacity 0.3s ease;
+            top: -100px;
+            left: -100px;
+            width: 1px;
+            height: 1px;
             opacity: 0;
+            pointer-events: none;
         }
 
-        .music-player.expanded .music-info {
-            max-width: 200px;
-            opacity: 1;
-        }
-
-        .music-title {
-            font-weight: 600;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .music-artist {
-            font-size: 0.8rem;
-            color: #8a7a63;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .music-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .music-btn {
-            background: none;
-            border: none;
-            color: #d4af7a;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Minimal Music Indicator */
+        .music-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(212, 175, 122, 0.9);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .music-btn:hover {
-            color: #b08d57;
-            background: rgba(212, 175, 122, 0.15);
-            transform: scale(1.1);
-        }
-
-        .volume-control {
-            width: 0;
-            overflow: hidden;
-            transition: width 0.3s ease;
-        }
-
-        .music-player.expanded .volume-control {
-            width: 80px;
-        }
-
-        .volume-slider {
-            width: 100%;
-            -webkit-appearance: none;
-            height: 4px;
-            border-radius: 2px;
-            background: #e8e2d6;
-            outline: none;
-        }
-
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #d4af7a;
             cursor: pointer;
-            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
         }
 
-        .volume-slider::-webkit-slider-thumb:hover {
-            background: #b08d57;
-            transform: scale(1.2);
+        .music-indicator:hover {
+            transform: scale(1.1);
+            background: rgba(212, 175, 122, 1);
         }
 
-        /* Autoplay Notification */
-        .autoplay-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(212, 175, 122, 0.95);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            display: none;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.5s ease;
-            max-width: 300px;
+        .music-indicator.paused {
+            background: rgba(140, 140, 140, 0.7);
+            animation: none;
         }
 
-        .autoplay-notification.show {
-            display: flex;
-        }
-
-        .autoplay-notification i {
+        .music-indicator i {
             font-size: 1.2rem;
         }
 
-        .autoplay-notification p {
-            margin: 0;
-            font-size: 0.9rem;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        /* Loading Spinner untuk RSVP */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #d4af7a;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Hero Section */
@@ -480,11 +397,19 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(212, 175, 122, 0.3);
+            width: 100%;
         }
 
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(212, 175, 122, 0.4);
+        }
+
+        .btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         /* Footer */
@@ -561,51 +486,25 @@
                 font-size: 2.5rem;
             }
             
-            .music-player {
-                bottom: 20px;
-                right: 20px;
-                left: 20px;
-                justify-content: space-between;
-            }
-            
-            .music-player.expanded {
-                width: calc(100% - 40px);
-                max-width: none;
-            }
-            
-            .autoplay-notification {
-                top: 10px;
-                right: 10px;
-                left: 10px;
-                max-width: none;
+            .music-indicator {
+                bottom: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Autoplay Notification -->
-    <div class="autoplay-notification" id="autoplayNotification">
-        <i class="fas fa-volume-up"></i>
-        <p>Klik tombol play untuk memulai musik romantis kami</p>
-    </div>
+    <!-- Hidden Audio Element -->
+    <audio id="backgroundMusic" class="hidden-audio" loop>
+        <source src="Maher Zain - Baraka Allahu Lakuma ｜ Official Lyric Video ｜ ماهر زين - بارك الله لك.mp3" type="audio/mp3">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
 
-    <!-- Music Player -->
-    <div class="music-player" id="musicPlayer">
-        <div class="music-controls">
-            <button class="music-btn" id="playPauseBtn">
-                <i class="fas fa-play"></i>
-            </button>
-        </div>
-        <div class="music-info">
-            <div class="music-title" id="musicTitle">Barakallah</div>
-            <div class="music-artist" id="musicArtist">Maher Zain</div>
-        </div>
-        <div class="volume-control">
-            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider">
-        </div>
-        <button class="music-btn" id="expandBtn">
-            <i class="fas fa-music"></i>
-        </button>
+    <!-- Minimal Music Indicator -->
+    <div class="music-indicator" id="musicIndicator" title="Klik untuk pause/play">
+        <i class="fas fa-music"></i>
     </div>
 
     <!-- Hero Section -->
@@ -717,19 +616,26 @@
     <section class="rsvp">
         <div class="container">
             <h2 class="section-title">Konfirmasi Kehadiran</h2>
-            <p>Kami berharap dapat berbagi kebahagiaan ini bersama Anda. Mohon konfirmasi kehadiran Anda sebelum tanggal 1 Juni 2024.</p>
-            <form class="rsvp-form">
+            <p>Kami berharap dapat berbagi kebahagiaan ini bersama Anda. Mohon konfirmasi kehadiran Anda sebelum tanggal 19 Desember 2025.</p>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Mengirim konfirmasi...</p>
+            </div>
+
+            <form class="rsvp-form" id="rsvpForm">
                 <div class="form-group">
-                    <label for="name">Nama Lengkap</label>
+                    <label for="name">Nama Lengkap *</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email *</label>
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="guests">Jumlah Tamu</label>
-                    <select id="guests" name="guests">
+                    <label for="guests">Jumlah Tamu *</label>
+                    <select id="guests" name="guests" required>
+                        <option value="">Pilih jumlah tamu</option>
                         <option value="1">1 Orang</option>
                         <option value="2">2 Orang</option>
                         <option value="3">3 Orang</option>
@@ -738,8 +644,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="attendance">Konfirmasi Kehadiran</label>
-                    <select id="attendance" name="attendance">
+                    <label for="attendance">Konfirmasi Kehadiran *</label>
+                    <select id="attendance" name="attendance" required>
+                        <option value="">Pilih konfirmasi</option>
                         <option value="yes">Ya, Saya Akan Hadir</option>
                         <option value="no">Maaf, Saya Tidak Dapat Hadir</option>
                     </select>
@@ -748,7 +655,9 @@
                     <label for="message">Pesan/Ucapan</label>
                     <textarea id="message" name="message" placeholder="Tulis pesan atau ucapan untuk mempelai..."></textarea>
                 </div>
-                <button type="submit" class="btn">Kirim Konfirmasi</button>
+                <button type="submit" class="btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Kirim Konfirmasi
+                </button>
             </form>
         </div>
     </section>
@@ -793,113 +702,164 @@
         const countdownTimer = setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Form Submission
-        document.querySelector('.rsvp-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Terima kasih! Konfirmasi kehadiran Anda telah berhasil dikirim.');
-            this.reset();
+        // Auto Play Background Music
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicIndicator = document.getElementById('musicIndicator');
+
+        function startBackgroundMusic() {
+            backgroundMusic.volume = 0.5;
+            
+            const playPromise = backgroundMusic.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log('Musik berhasil diputar otomatis');
+                    musicIndicator.classList.remove('paused');
+                }).catch(error => {
+                    console.log('Auto-play diblokir:', error);
+                    document.body.addEventListener('click', function() {
+                        backgroundMusic.play();
+                        musicIndicator.classList.remove('paused');
+                    }, { once: true });
+                });
+            }
+        }
+
+        musicIndicator.addEventListener('click', function() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicIndicator.classList.remove('paused');
+            } else {
+                backgroundMusic.pause();
+                musicIndicator.classList.add('paused');
+            }
         });
 
-        // Music Player Functionality - FIXED VERSION
-        const musicPlayer = document.getElementById('musicPlayer');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const expandBtn = document.getElementById('expandBtn');
-        const volumeSlider = document.getElementById('volumeSlider');
-        const musicTitle = document.getElementById('musicTitle');
-        const musicArtist = document.getElementById('musicArtist');
-        const autoplayNotification = document.getElementById('autoplayNotification');
-        
-        // Create audio element
-        const audio = new Audio();
-        
-        // GANTI DENGAN FILE MUSIK ANDA
-        // Letakkan file musik di folder yang sama dengan file HTML
-        audio.src = 'Maher Zain - Baraka Allahu Lakuma ｜ Official Lyric Video ｜ ماهر زين - بارك الله لك.mp3'; // Ganti dengan nama file musik Anda
-        
-        audio.loop = true;
-        audio.volume = volumeSlider.value / 100;
-        
-        let isPlaying = false;
-        let isExpanded = false;
-        let userInteracted = false;
-        
-        // Show notification on page load
         window.addEventListener('load', function() {
-            setTimeout(() => {
-                autoplayNotification.classList.add('show');
-            }, 2000);
-            
-            // Hide notification after 8 seconds
-            setTimeout(() => {
-                autoplayNotification.classList.remove('show');
-            }, 10000);
+            setTimeout(startBackgroundMusic, 1000);
         });
-        
-        // Play/Pause functionality - FIXED
-        playPauseBtn.addEventListener('click', function() {
-            userInteracted = true;
-            autoplayNotification.classList.remove('show');
-            
-            if (isPlaying) {
-                audio.pause();
-                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                isPlaying = false;
-            } else {
-                // Use a promise to handle play()
-                const playPromise = audio.play();
-                
-                if (playPromise !== undefined) {
-                    playPromise.then(() => {
-                        // Audio started successfully
-                        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                        isPlaying = true;
-                    }).catch(error => {
-                        // Auto-play was prevented, show user message
-                        console.log("Play failed:", error);
-                        alert('Browser memblokir autoplay. Silakan klik tombol play sekali lagi untuk memulai musik.');
-                        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                        isPlaying = false;
-                    });
-                }
-            }
-        });
-        
-        // Expand/Collapse functionality
-        expandBtn.addEventListener('click', function() {
-            if (isExpanded) {
-                musicPlayer.classList.remove('expanded');
-                expandBtn.innerHTML = '<i class="fas fa-music"></i>';
-            } else {
-                musicPlayer.classList.add('expanded');
-                expandBtn.innerHTML = '<i class="fas fa-compress-alt"></i>';
-            }
-            isExpanded = !isExpanded;
-        });
-        
-        // Volume control
-        volumeSlider.addEventListener('input', function() {
-            audio.volume = this.value / 100;
-        });
-        
-        // Auto-hide notification when user interacts with page
-        document.addEventListener('click', function() {
-            userInteracted = true;
-            autoplayNotification.classList.remove('show');
-        });
-        
-        // Ganti judul dan artis lagu sesuai keinginan
-        musicTitle.textContent = 'Barakallah';
-        musicArtist.textContent = 'Maher Zain';
 
-        // Improved error handling for audio
-        audio.addEventListener('error', function(e) {
+        backgroundMusic.addEventListener('error', function(e) {
             console.error('Error loading audio:', e);
-            alert('Maaf, terjadi masalah saat memuat file musik. Pastikan file musik ada di folder yang benar dan formatnya MP3.');
+            musicIndicator.style.display = 'none';
         });
-        
-        audio.addEventListener('canplaythrough', function() {
-            console.log('Audio is ready to play');
+
+        // RSVP FORM HANDLING - OPTION 2 (Email Notification)
+        const rsvpForm = document.getElementById('rsvpForm');
+        const loadingElement = document.getElementById('loading');
+        const submitBtn = document.getElementById('submitBtn');
+
+        rsvpForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Tampilkan loading
+            loadingElement.style.display = 'block';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                guests: document.getElementById('guests').value,
+                attendance: document.getElementById('attendance').value,
+                message: document.getElementById('message').value,
+                timestamp: new Date().toLocaleString('id-ID', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })
+            };
+
+            try {
+                // Method 1: Email via mailto (buka aplikasi email)
+                await sendEmailNotification(formData);
+                
+                // Simpan di localStorage sebagai backup
+                saveToLocalStorage(formData);
+                
+                // Tampilkan konfirmasi sukses
+                showSuccessMessage();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                // Fallback: simpan di localStorage saja
+                saveToLocalStorage(formData);
+                showSuccessMessage();
+            }
         });
+
+        function sendEmailNotification(data) {
+            return new Promise((resolve, reject) => {
+                try {
+                    const subject = `🎉 Konfirmasi Kehadiran Pernikahan - ${data.name}`;
+                    const body = `
+Halo Dea & Ardi!
+
+Saya ingin mengonfirmasi kehadiran untuk acara pernikahan Anda:
+
+📝 DATA KONFIRMASI:
+• Nama: ${data.name}
+• Email: ${data.email}
+• Jumlah Tamu: ${data.guests} orang
+• Kehadiran: ${data.attendance === 'yes' ? '✅ YA, AKAN HADIR' : '❌ TIDAK DAPAT HADIR'}
+• Pesan/Ucapan: ${data.message || 'Tidak ada pesan'}
+• Waktu Konfirmasi: ${data.timestamp}
+
+Terima kasih!
+${data.name}
+
+---
+*Email ini dikirim otomatis dari undangan digital Dea & Ardi*
+                    `;
+
+                    // Encode untuk URL
+                    const encodedSubject = encodeURIComponent(subject);
+                    const encodedBody = encodeURIComponent(body);
+                    
+                    // GANTI EMAIL ANDA DI SINI!
+                    const yourEmail = 'Ngopikipas@gmail.com'; // Ganti dengan email Anda
+                    
+                    // Buka aplikasi email
+                    window.location.href = `mailto:${yourEmail}?subject=${encodedSubject}&body=${encodedBody}`;
+                    
+                    resolve(true);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        function saveToLocalStorage(data) {
+            const existingData = JSON.parse(localStorage.getItem('weddingRSVP') || '[]');
+            existingData.push(data);
+            localStorage.setItem('weddingRSVP', JSON.stringify(existingData));
+            console.log('Data tersimpan di localStorage:', existingData.length, 'konfirmasi');
+        }
+
+        function showSuccessMessage() {
+            // Sembunyikan loading
+            loadingElement.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Konfirmasi';
+            
+            // Tampilkan alert sukses
+            alert(`Terima kasih ${document.getElementById('name').value}!\n\nKonfirmasi kehadiran Anda telah berhasil dikirim. Silakan kirim email yang terbuka di aplikasi email Anda.\n\nKami sangat menanti kehadiran Anda! 💕`);
+            
+            // Reset form
+            rsvpForm.reset();
+        }
+
+        // Optional: Cek data yang sudah tersimpan
+        function showStoredRSVP() {
+            const stored = JSON.parse(localStorage.getItem('weddingRSVP') || '[]');
+            console.log('Total konfirmasi tersimpan:', stored.length);
+            console.log('Detail:', stored);
+        }
+
+        // Untuk melihat data, buka browser console dan ketik: showStoredRSVP()
     </script>
 </body>
 </html>
